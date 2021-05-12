@@ -13,7 +13,14 @@ const navigator = createStackNavigator(
   {
     initialRouteName: "Search",
     defaultNavigationOptions: {
-      title: "Business Search"
+      title: "Hello Sydney",
+      headerStyle: {
+        backgroundColor: '#f4511e',
+      },
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        textAlign: 'center'
+      },
     }
   }
 );

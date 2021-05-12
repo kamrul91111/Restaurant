@@ -2,17 +2,18 @@ import React from 'react';
 import {Text, View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import {withNavigation} from 'react-navigation'; //gives access to navigation prop to child component directly
 import ResultsDetail from '../components/ResultsDetail';
+import { Title } from 'react-native-paper';
 
 
 const ResultsList = ({ title, results, navigation }) => {
-   if (!results.length) {
+   if (!results.length) { //if no result
        return null;
    } 
 //    makes the header with no search result disappear
 
     return (
         <View style={styles.container}>
-            <Text style={styles.titleStyle}>{title}</Text>
+            <Title style={styles.titleStyle}> {title} </Title>
             <FlatList 
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -33,10 +34,9 @@ const ResultsList = ({ title, results, navigation }) => {
 
 const styles = StyleSheet.create({
     titleStyle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginLeft: 15,
-        marginBottom: 5
+        //marginLeft: 15,
+        //marginBottom: 5
+        padding: 15
     },
     container: {
         marginBottom: 10

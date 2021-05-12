@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 
+
+
 const ResultsDetail = ({result}) => {
     return (
         <View style={styles.container}>
@@ -10,23 +12,25 @@ const ResultsDetail = ({result}) => {
                 source={{uri: result.image_url}} 
             />   
             <Text style={styles.namestyle}>{result.name}</Text>
-            <Text>{result.rating} Stars, {result.review_count} Review</Text>
+            <Text style={{color: 'white'}}>{result.rating} Stars, {result.review_count} Review</Text>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        marginLeft: 15
+        marginLeft: 15,
+        alignItems: 'center'
     },
     imageStyle: {
-        width: 250,
-        height: 120,
-        borderRadius: 4,
+        width: 200,
+        height: 200,
+        borderRadius: 20,
         marginBottom: 5
     },
     namestyle: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: 'white'
     }
 });
 

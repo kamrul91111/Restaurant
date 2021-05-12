@@ -7,6 +7,8 @@ import yelp from '../api/yelp';
 import useResults from '../hooks/useResults';
 import ResultsList from '../components/ResultsList';
 
+import {Provider as PaperProvider} from 'react-native-paper';
+
 const SearchScreen = () => {   
     const [term, setTerm] = useState("");
     const [searchApi, results,errorMessage] = useResults(); //uses the reusable hook
@@ -19,14 +21,14 @@ const SearchScreen = () => {
     };
 
     return (
-        <>
+        <PaperProvider>
             <SearchBar 
                 term={term} 
                 onTermChange={setTerm} 
                 onTermSubmit={() => searchApi(term)}
             />
             {errorMessage ? <Text>{errorMessage}</Text> : null}
-            <ScrollView>
+            <ScrollView style={styles.container}>
             <ResultsList 
                 title="Cost Effective" 
                 results= {filterResultsByPrice('$')}
@@ -40,10 +42,14 @@ const SearchScreen = () => {
                 results= {filterResultsByPrice('$$$')}   
             />
             </ScrollView>
-        </>
+        </PaperProvider>
     );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: 'black'
+    }
+});
 
 export default SearchScreen;
