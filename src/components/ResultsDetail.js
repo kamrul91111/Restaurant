@@ -17,6 +17,7 @@ const ResultsDetail = ({ result }) => {
         <Subheading
           numberOfLines={1}
           style={{ fontWeight: "bold", color: "white" }}
+          ellipsizeMode={'tail'}
         >
           {result.name}
         </Subheading>
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   card: {
-    maxWidth: 200,
+    width: 200,
     //padding: 5,
     backgroundColor: "#333",
     borderWidth: 1,

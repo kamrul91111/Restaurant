@@ -22,7 +22,7 @@ const SearchBar = ({ term, onTermChange, onTermSubmit }) => {
       </View> */}
       <Searchbar
         style={{margin: 10}}
-        placeholder="Search"
+        placeholder="What are you craving?"
         value={term}
         onChangeText={onTermChange}
         autoCapitalize="none"

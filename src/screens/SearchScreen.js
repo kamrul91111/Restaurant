@@ -4,6 +4,8 @@ import {
   Text,
   StyleSheet,
   ScrollView,
+  TouchableOpacity,
+  Alert
 } from "react-native";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
@@ -13,7 +15,9 @@ import useResults from "../hooks/useResults";
 import ResultsList from "../components/ResultsList";
 import { StatusBar } from "expo-status-bar";
 import LottieView from "lottie-react-native";
-import { Switch } from "react-native-paper";
+import { Switch, Title, Paragraph } from "react-native-paper";
+import { Entypo } from '@expo/vector-icons';
+import { Foundation } from '@expo/vector-icons';
 
 const SearchScreen = () => {
   const [term, setTerm] = useState("");
@@ -39,8 +43,12 @@ const SearchScreen = () => {
             onTermChange={setTerm}
             onTermSubmit={() => searchApi(term)}
           />
-          {errorMessage ? <Text>{errorMessage}</Text> : null}
-          <ScrollView style={{ marginBottom: 10 }}>
+          {errorMessage ? <Text style={{color: 'white', padding: 10, textAlign: 'center'}}>{errorMessage}</Text> : null}
+          <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}} onPress={()=> Alert.alert('Hello User', 'The app is still under development and as of yet, you cannot add your location :(')}>
+            <Entypo name="location-pin" size={24} color="white" />
+            <Paragraph style={{color: 'white', padding: 10, textAlign: 'center'}}>Location: Paramatta</Paragraph>
+          </TouchableOpacity>
+          <ScrollView style={{ marginBottom: 8, margin: 5 }}>
             <ResultsList
               title="Cost Effective"
               results={filterResultsByPrice("$")}

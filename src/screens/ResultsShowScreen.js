@@ -26,6 +26,7 @@ const ResultsShowScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const id = navigation.getParam("id");
 
+
   //loading timeout
   setTimeout(() => {
     setLoading(false);
@@ -43,6 +44,8 @@ const ResultsShowScreen = ({ navigation }) => {
   if (!result) {
     return null;
   }
+
+  //console.log(result.special_hours)
 
   return (
     <ScrollView style={styles.container}>
@@ -68,12 +71,12 @@ const ResultsShowScreen = ({ navigation }) => {
             style={{
               backgroundColor: "darkred",
               width: width,
-              height: 55,
+              height: 65,
               justifyContent: "center",
             }}
           >
             <Title style={{ color: "white", textAlign: "center" }}>
-              {result.name}
+              {result.name} || Expense Rating: {result.price}
             </Title>
           </View>
           <FlatList
@@ -105,16 +108,39 @@ const ResultsShowScreen = ({ navigation }) => {
                 size={20}
                 onPress={() => Linking.openURL(`tel: ${result.phone}`)}
               />
-              <Subheading style={styles.text}>Phone: {result.display_phone}</Subheading>
+              <Subheading style={styles.text}>
+                Phone: {result.display_phone}
+              </Subheading>
             </View>
-            <Subheading style={[styles.text, {marginTop: 5}]}>Rating: {result.rating}</Subheading>
-            <Subheading style={[styles.text, ]}>Restaurant has been rated by 
-            <Subheading style={{color: 'red'}}> {result.review_count} </Subheading>
-            Patrons on Yelp</Subheading>
-            <Title style={{color: 'white', textAlign: 'center'}}>Location</Title>
-            <Subheading style={styles.text}>{result.location.address1}, {result.location.address2}</Subheading>
-            <Subheading style={styles.text}>{result.location.city}, {result.location.state} - {result.location.zip_code}, {result.location.country}</Subheading>
+            <Subheading style={[styles.text, { marginTop: 5 }]}>
+              Rating: {result.rating}
+            </Subheading>
+            <Subheading style={[styles.text]}>
+              Restaurant has been rated by
+              <Title style={{ color: "yellow" }}> {result.review_count} </Title>
+              Patrons on Yelp
+            </Subheading>
+            <Title style={styles.text}>
+              Location
+            </Title>
+            <Subheading style={styles.text}>
+              {result.location.address1}, {result.location.address2}
+            </Subheading>
+            <Subheading style={styles.text}>
+              {result.location.city}, {result.location.state} -{" "}
+              {result.location.zip_code}, {result.location.country}
+            </Subheading>
             <Subheading style={styles.text}></Subheading>
+            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center',}}>
+              <IconButton
+                style={{marginRight: -15}}
+                icon="web"
+                color={"red"}
+                size={20}
+                onPress={() => Linking.openURL(`${result.url}`)}
+              />
+              <Subheading style={styles.text}>Check reviews on yelp</Subheading>
+            </View>
           </View>
         </>
       )}
@@ -125,11 +151,15 @@ const ResultsShowScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#333",
-    flex: 1
+    flex: 1,
   },
   image: {
-    height: 200,
-    width: 300,
+    height: 250,
+    width: width,
+    margin: 8,
+    borderRadius: 10,
+    borderColor: 'lightgrey',
+    borderWidth: 0.5
   },
   text: {
     color: "white",

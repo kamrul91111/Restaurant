@@ -5,7 +5,7 @@ export default () => {
   const [results, setResults] = useState([]);
   const [errorMessage, SetErrorMessage] = useState("");
   const [loading, setLoading] = useState(true);
-  const [location, setLocation] = useState('Blacktown, AU')
+  const [location, setLocation] = useState('Paramatta, AU')
 
   // setTimeout(() => {
   //   setLocation('Auburn, AU')
@@ -43,7 +43,7 @@ export default () => {
   // searchApi('pasta'); this does repetative search, BAD CODE!!!!!
 
   useEffect(() => {
-    searchApi("Italian");
+    searchApi("Chinese");
   }, []); //this only does the default api request once
 
   return [searchApi, results, errorMessage, loading];
