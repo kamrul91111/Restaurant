@@ -13,10 +13,12 @@ const navigator = createStackNavigator(
   {
     initialRouteName: "Search",
     defaultNavigationOptions: {
-      title: "Business Search",
+      title: "Search for stuff",
       headerStyle: {
-        backgroundColor: 'black'
-      }
+        backgroundColor: '#333',
+      },
+      headerTintColor: 'white',
+      headerTitleAlign: 'center'
     }
   }
 );

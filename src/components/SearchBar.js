@@ -27,7 +27,9 @@ const SearchBar = ({ term, onTermChange, onTermSubmit }) => {
         onChangeText={onTermChange}
         autoCapitalize="none"
         autoCorrect={false}
-        onEndEditing={onTermSubmit}
+        onBlur={onTermSubmit}
+        onIconPress={onTermSubmit}
+        //onEndEditing={onTermSubmit}
       />
     </>
   );

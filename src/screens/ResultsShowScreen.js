@@ -1,43 +1,140 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, FlatList, Image} from 'react-native';
-import yelp from '../api/yelp';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Image,
+  Dimensions,
+  ScrollView,
+  Linking,
+} from "react-native";
+import yelp from "../api/yelp";
+import {
+  Headline,
+  Subheading,
+  Title,
+  Paragraph,
+  IconButton,
+} from "react-native-paper";
+import LottieView from "lottie-react-native";
 
-const ResultsShowScreen = ({navigation}) => {
-    const [result, setResult] = useState(null);
-    const id = navigation.getParam('id');
+var { width } = Dimensions.get("window");
 
-     const getResult = async (id) => {
-            const response = await yelp.get(`/${id}`);
-            setResult(response.data);
-     };
-    
-     useEffect(() => {
-         getResult(id);
-     }, []);
+const ResultsShowScreen = ({ navigation }) => {
+  const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const id = navigation.getParam("id");
 
-     if (!result) {
-         return null;
-     }
+  //loading timeout
+  setTimeout(() => {
+    setLoading(false);
+  }, 1000);
 
-     return(
-        <View>
-            <Text>{result.name}</Text>
-            <FlatList 
-                data={result.photos}
-                keyExtractor={(photo) => photo}
-                renderItem={({item}) => {
-                    return <Image style={styles.image} source={{uri: item}} />
-                }}
-            />
+  const getResult = async (id) => {
+    const response = await yelp.get(`/${id}`);
+    setResult(response.data);
+  };
+
+  useEffect(() => {
+    getResult(id);
+  }, []);
+
+  if (!result) {
+    return null;
+  }
+
+  return (
+    <ScrollView style={styles.container}>
+      {loading === true ? (
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 150,
+            flex: 1,
+          }}
+        >
+          <LottieView
+            source={require("../../assets/atom.json")}
+            style={{ width: 300 }}
+            autoPlay
+            loop
+          />
         </View>
-    );
+      ) : (
+        <>
+          <View
+            style={{
+              backgroundColor: "darkred",
+              width: width,
+              height: 55,
+              justifyContent: "center",
+            }}
+          >
+            <Title style={{ color: "white", textAlign: "center" }}>
+              {result.name}
+            </Title>
+          </View>
+          <FlatList
+            horizontal
+            data={result.photos}
+            keyExtractor={(photo) => photo}
+            renderItem={({ item }) => {
+              return <Image style={styles.image} source={{ uri: item }} />;
+            }}
+          />
+          <View
+            style={{
+              backgroundColor: "black",
+              marginTop: 30,
+              margin: 10,
+              padding: 15,
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                //justifyContent: "center",
+              }}
+            >
+              <IconButton
+                icon="phone"
+                color={"yellow"}
+                size={20}
+                onPress={() => Linking.openURL(`tel: ${result.phone}`)}
+              />
+              <Subheading style={styles.text}>Phone: {result.display_phone}</Subheading>
+            </View>
+            <Subheading style={[styles.text, {marginTop: 5}]}>Rating: {result.rating}</Subheading>
+            <Subheading style={[styles.text, ]}>Restaurant has been rated by 
+            <Subheading style={{color: 'red'}}> {result.review_count} </Subheading>
+            Patrons on Yelp</Subheading>
+            <Title style={{color: 'white', textAlign: 'center'}}>Location</Title>
+            <Subheading style={styles.text}>{result.location.address1}, {result.location.address2}</Subheading>
+            <Subheading style={styles.text}>{result.location.city}, {result.location.state} - {result.location.zip_code}, {result.location.country}</Subheading>
+            <Subheading style={styles.text}></Subheading>
+          </View>
+        </>
+      )}
+    </ScrollView>
+  );
 };
 
 const styles = StyleSheet.create({
-    image: {
-        height: 200,
-        width: 300
-    }
+  container: {
+    backgroundColor: "#333",
+    flex: 1
+  },
+  image: {
+    height: 200,
+    width: 300,
+  },
+  text: {
+    color: "white",
+    margin: 15,
+  },
 });
 
 export default ResultsShowScreen;
