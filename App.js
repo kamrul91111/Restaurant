@@ -1,25 +1,30 @@
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import ResultsShowScreen from './src/screens/ResultsShowScreen';
-import SearchScreen from './src/screens/SearchScreen';
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import ResultsShowScreen from "./src/screens/ResultsShowScreen";
+import SearchScreen from "./src/screens/SearchScreen";
+import { TransitionPresets } from 'react-navigation-stack';
+import { LogBox } from "react-native";
 
+// /LogBox.ignoreAllLogs(true)
 
 const navigator = createStackNavigator(
   {
-      Search : SearchScreen,
-      ResultsShow: ResultsShowScreen
-
+    Search: SearchScreen,
+    ResultsShow: ResultsShowScreen,
   },
   {
     initialRouteName: "Search",
     defaultNavigationOptions: {
-      title: "Search for stuff",
+      title: "Restaurant Finder",
       headerStyle: {
-        backgroundColor: '#333',
+        backgroundColor: "#333",
       },
-      headerTintColor: 'white',
-      headerTitleAlign: 'center'
-    }
+      headerTintColor: "white",
+      headerTitleAlign: "center",
+      gestureEnabled: true,
+      cardOverlayEnabled: true,
+      ...TransitionPresets.FadeFromBottomAndroid   //adds animation    
+    },
   }
 );
 

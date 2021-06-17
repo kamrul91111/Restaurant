@@ -15,6 +15,7 @@ import {
   Subheading,
   Title,
   Paragraph,
+  Button,
   IconButton,
 } from "react-native-paper";
 import LottieView from "lottie-react-native";
@@ -25,7 +26,6 @@ const ResultsShowScreen = ({ navigation }) => {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(true);
   const id = navigation.getParam("id");
-
 
   //loading timeout
   setTimeout(() => {
@@ -90,9 +90,9 @@ const ResultsShowScreen = ({ navigation }) => {
           <View
             style={{
               backgroundColor: "black",
-              marginTop: 30,
-              margin: 10,
-              padding: 15,
+              marginTop: 10,
+              margin: 5,
+              padding: 10,
             }}
           >
             <View
@@ -102,15 +102,15 @@ const ResultsShowScreen = ({ navigation }) => {
                 //justifyContent: "center",
               }}
             >
-              <IconButton
+              {/* <IconButton
                 icon="phone"
                 color={"yellow"}
                 size={20}
                 onPress={() => Linking.openURL(`tel: ${result.phone}`)}
-              />
-              <Subheading style={styles.text}>
+              /> */}
+              {/* <Subheading style={styles.text}>
                 Phone: {result.display_phone}
-              </Subheading>
+              </Subheading> */}
             </View>
             <Subheading style={[styles.text, { marginTop: 5 }]}>
               Rating: {result.rating}
@@ -120,9 +120,7 @@ const ResultsShowScreen = ({ navigation }) => {
               <Title style={{ color: "yellow" }}> {result.review_count} </Title>
               Patrons on Yelp
             </Subheading>
-            <Title style={styles.text}>
-              Location
-            </Title>
+            <Title style={styles.text}>Location</Title>
             <Subheading style={styles.text}>
               {result.location.address1}, {result.location.address2}
             </Subheading>
@@ -131,15 +129,19 @@ const ResultsShowScreen = ({ navigation }) => {
               {result.location.zip_code}, {result.location.country}
             </Subheading>
             <Subheading style={styles.text}></Subheading>
-            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center',}}>
-              <IconButton
-                style={{marginRight: -15}}
-                icon="web"
-                color={"red"}
-                size={20}
+            <View>
+              <Button onPress={() => Linking.openURL(`tel: ${result.phone}`)} icon="phone" style={{ margin: 5 }} mode="contained">
+                Book a table
+              </Button>
+              <Button
                 onPress={() => Linking.openURL(`${result.url}`)}
-              />
-              <Subheading style={styles.text}>Check reviews on yelp</Subheading>
+                icon="web"
+                color="darkred"
+                style={{ margin: 5 }}
+                mode="contained"
+              >
+                Check Reviews on yelp
+              </Button>
             </View>
           </View>
         </>
@@ -156,10 +158,10 @@ const styles = StyleSheet.create({
   image: {
     height: 250,
     width: width,
-    margin: 8,
-    borderRadius: 10,
-    borderColor: 'lightgrey',
-    borderWidth: 0.5
+    margin: 2,
+    borderRadius: 5,
+    borderColor: "lightgrey",
+    borderWidth: 0.5,
   },
   text: {
     color: "white",
