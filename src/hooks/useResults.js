@@ -11,7 +11,7 @@ export default () => {
             params: {
                 limit: 50,
                 term: searchTerm, //took the name from  yelp fusion page term 
-                location: 'New York'
+                location: 'Sydney'
             }
         });
         setResults(response.data.businesses);
